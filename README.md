@@ -4,12 +4,15 @@ It uses the urandom device in your linux kernel to generate the passwords. It ju
 
 
 EXAMPLES:
-	generate 1 password with a length of 8:
-	./pwgen.sh 
-	generate 10 passwords with a length of 8:
+
+generate 1 password with a length of 8:
+	./pwgen.sh
+
+generate 10 passwords with a length of 8:
 	./pwgen.sh -l 8 -a 10 -o passlist.txt
 
 PARAMETERS:
+
 	-h 	 shows this screen
 
 		 ### required: ###
