@@ -3,7 +3,7 @@
 # Default PARAMETERS
 amount=1
 length=8
-filename=pwlist.txt
+filename=/tmp/passlist.txt
 
 # Print the help screen
 printhelp()
@@ -18,7 +18,7 @@ printhelp()
 	echo -e '\t-l \t defines the length of the generated passord(s) \t\t- default = 8'
 	echo -e '\t-a \t defines the amount of generated passwords \t\t\t- default = 1\n'
 	echo -e '\t\t ### optional: ###'
-	echo -e '\t-o \t defines the output file the passwords will be saved in \t- default = none'
+	echo -e '\t-o \t defines the file the password(s) will be saved in \t- default = none'
 	echo -e '\t-c \t defines the charset to use //NOT IMPLEMENTED YET'
 	exit 0
 }
@@ -26,15 +26,22 @@ printhelp()
 # write the generated passwords to console
 printpw()
 {
-	cat $filename
+	cat /tmp/passlist.txt
 }
 
 # main password generation function
 passgen()
 {
-	for i in `seq 1 $2`; do strings /dev/urandom|grep -o '[[:alnum:]!#+*~<>|"§$%&/(),.;:_-]'|head -n $1|tr -d '\n';echo "";done > "$filename"
-	#TODO: check if you want to print
+	for i in `seq 1 $2`; do strings /dev/urandom|grep -o '[[:alnum:]!#+*~<>|"§$%&/(),.;:_-]'|head -n $1|tr -d '\n';echo "";done > /tmp/passlist.txt
+
 	printpw
+
+	if [ "$filename" != "/tmp/passlist.txt" ]
+	then cp /tmp/passlist.txt $filename
+	fi
+
+	rm -rf /tmp/passlist.txt
+
 	exit 0
 }
 
@@ -42,6 +49,7 @@ passgen()
 if [ $# -eq 0 ]
 then passgen $length $amount
 fi
+
 # check if required parameters are set
 if [ $# -lt 4 ]
 then printhelp
@@ -76,3 +84,5 @@ case $5 in
 	"-c") echo "not implemented yet!" ;;
 	*) passgen $length $amount ;;
 esac
+
+passgen $length $amount
