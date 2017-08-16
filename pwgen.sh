@@ -33,7 +33,8 @@ printpw()
 passgen()
 {
 	for i in `seq 1 $2`
-		do strings /dev/urandom|grep -o '[[:alnum:]=@!#+*~<>|\"§$%&/(),.;:_-]'|head -n $1|tr -d '\n'
+	do
+		strings /dev/urandom|grep -o '[[:alnum:]=@!#+*~<>|\"§$%&/(),.;:_-]'|head -n $1|tr -d '\n'
 		echo ""
 	done > /tmp/passlist.txt
 
