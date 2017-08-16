@@ -32,7 +32,10 @@ printpw()
 # main password generation function
 passgen()
 {
-	for i in `seq 1 $2`; do strings /dev/urandom|grep -o '[[:alnum:]!#+*~<>|"§$%&/(),.;:_-]'|head -n $1|tr -d '\n';echo "";done > /tmp/passlist.txt
+	for i in `seq 1 $2`
+		do strings /dev/urandom|grep -o '[[:alnum:]=@!#+*~<>|\"§$%&/(),.;:_-]'|head -n $1|tr -d '\n'
+		echo ""
+	done > /tmp/passlist.txt
 
 	printpw
 
