@@ -8,6 +8,14 @@ It uses the urandom device in your linux kernel to generate the passwords. It ju
 
 
 # Installation:
+Dependencies: You need the git package for the updater/installer to work
+
+Debian/Ubuntu: 	apt-get install git
+Arch Linux:	pacman -S git
+Fedora: 	dnf -y install git
+Redhat:		yum install git
+Suse:		zypper in git-core
+
 If you choose to install pwgen to your system, just type ./pwgen -update
 It will download the latest source from GitHub and install itself into /usr/sbin
 WARNING!! If you allready have a programm called pwgen, it will be OVERWRITTEN! check before installing
