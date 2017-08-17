@@ -8,18 +8,19 @@ filename=/tmp/passlist.txt
 # Print the help screen
 printhelp()
 {
-	echo '$0 will generate 1 password with the length of 8'
-	echo 'EXAMPLES:'
-	echo '\tgenerate 1 password with a length of 8:\n\t$0 '
-	echo '\tgenerate 10 passwords with a length of 8:\n\t$0 -l 8 -a 10 -o passlist.txt\n'
-	echo 'PARAMETERS:'
-	echo '\t-h \t shows this screen\n'
-	echo '\t\t ### required: ###'
-	echo '\t-l \t defines the length of the generated passord(s) \t\t- default = 8'
-	echo '\t-a \t defines the amount of generated passwords \t\t\t- default = 1\n'
-	echo '\t\t ### optional: ###'
-	echo '\t-o \t defines the file the password(s) will be saved in \t- default = none'
-	echo '\t-c \t defines the charset to use //NOT IMPLEMENTED YET'
+	echo -e 'pwgen 1.0 - by m00ny\n\n'
+	echo -e 'EXAMPLES:'
+	echo -e "\tgenerate 1 password with a length of 8:\n\t\033[1;34m $0 \033[0m"
+	echo -e "\tgenerate 10 passwords with a length of 8:\n\t\033[1;34m $0 -l 8 -a 10 -o passlist.txt \033[0m\n"
+	echo -e 'PARAMETERS:'
+	echo -e '\t-h \t shows this screen\n'
+	echo -e '\t\t ### required: ###'
+	echo -e '\t-l \t defines the length of the generated passord(s) \t\t- default = 8'
+	echo -e '\t-a \t defines the amount of generated passwords \t\t\t- default = 1\n'
+	echo -e '\t\t ### optional: ###'
+	echo -e '\t-o \t defines the file the password(s) will be saved in \t- default = none'
+	echo -e '\t-c \t defines the charset to use //NOT IMPLEMENTED YET'
+	echo -e "\t $0 -update \t updates the programm and installs it to /usr/sbin/"
 	exit 0
 }
 
@@ -27,6 +28,19 @@ printhelp()
 printpw()
 {
 	cat /tmp/passlist.txt
+}
+
+#update script
+update()
+{
+	git clone https://github.com/m00nyONE/PasswordGen /tmp
+	chmod +x /tmp/PasswordGen/pwgen
+	echo -e "\033[1;34m pwgen will be installed to /usr/sbin \033[0m"
+	sudo chown root:root /tmp/PasswordGen/pwgen
+	sudo cp -rf /tmp/PasswordGen/pwgen /usr/sbin/pwgen
+	rm -rf /tmp/PasswordGen
+	echo "pwgen successfully updated!"
+	exit 0
 }
 
 # main password generation function
@@ -54,11 +68,6 @@ if [ $# -eq 0 ]
 then passgen $length $amount
 fi
 
-# check if required parameters are set
-if [ $# -lt 4 ]
-then printhelp
-fi
-
 # check for first option & its parameter
 case $1 in
 	"-h") printhelp ;;
@@ -66,6 +75,7 @@ case $1 in
 	"-a") amount=$2 ;;
 	"-l") length=$2 ;;
 	"-c") echo "not implemented yet!" ;;
+	"-update") update ;;
 	*) printhelp ;;
 esac
 
@@ -76,8 +86,14 @@ case $3 in
 	"-a") amount=$4 ;;
 	"-l") length=$4 ;;
 	"-c") echo "not implemented yet!" ;;
+	"-update") update ;;
 	*) printhelp ;;
 esac
+
+# check if required parameters are set
+if [ $# -lt 4 ]
+then printhelp
+fi
 
 # check third option & its parameter - if not given, generate the passwords
 case $5 in
@@ -86,6 +102,7 @@ case $5 in
 	"-a") amount=$6 ;;
 	"-l") length=$6 ;;
 	"-c") echo "not implemented yet!" ;;
+	"-update") update ;;
 	*) passgen $length $amount ;;
 esac
 
