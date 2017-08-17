@@ -8,18 +8,18 @@ filename=/tmp/passlist.txt
 # Print the help screen
 printhelp()
 {
-	echo -e "$0 will generate 1 password with the length of 8"
-	echo -e "EXAMPLES:"
-	echo -e "\tgenerate 1 password with a length of 8:\n\t$0 "
-	echo -e "\tgenerate 10 passwords with a length of 8:\n\t$0 -l 8 -a 10 -o passlist.txt\n"
-	echo -e "PARAMETERS:"
-	echo -e '\t-h \t shows this screen\n'
-	echo -e '\t\t ### required: ###'
-	echo -e '\t-l \t defines the length of the generated passord(s) \t\t- default = 8'
-	echo -e '\t-a \t defines the amount of generated passwords \t\t\t- default = 1\n'
-	echo -e '\t\t ### optional: ###'
-	echo -e '\t-o \t defines the file the password(s) will be saved in \t- default = none'
-	echo -e '\t-c \t defines the charset to use //NOT IMPLEMENTED YET'
+	echo '$0 will generate 1 password with the length of 8'
+	echo 'EXAMPLES:'
+	echo '\tgenerate 1 password with a length of 8:\n\t$0 '
+	echo '\tgenerate 10 passwords with a length of 8:\n\t$0 -l 8 -a 10 -o passlist.txt\n'
+	echo 'PARAMETERS:'
+	echo '\t-h \t shows this screen\n'
+	echo '\t\t ### required: ###'
+	echo '\t-l \t defines the length of the generated passord(s) \t\t- default = 8'
+	echo '\t-a \t defines the amount of generated passwords \t\t\t- default = 1\n'
+	echo '\t\t ### optional: ###'
+	echo '\t-o \t defines the file the password(s) will be saved in \t- default = none'
+	echo '\t-c \t defines the charset to use //NOT IMPLEMENTED YET'
 	exit 0
 }
 
