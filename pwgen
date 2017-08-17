@@ -33,7 +33,7 @@ printpw()
 #update script
 update()
 {
-	git clone https://github.com/m00nyONE/PasswordGen /tmp
+	git clone https://github.com/m00nyONE/PasswordGen /tmp/PasswordGen
 	chmod +x /tmp/PasswordGen/pwgen
 	echo -e "\033[1;34m pwgen will be installed to /usr/sbin \033[0m"
 	sudo chown root:root /tmp/PasswordGen/pwgen
