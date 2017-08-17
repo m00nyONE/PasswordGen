@@ -10,8 +10,8 @@ printhelp()
 {
 	echo -e 'pwgen 1.0 - by m00ny\n\n'
 	echo -e 'EXAMPLES:'
-	echo -e "\tgenerate 1 password with a length of 8:\n\t\033[1;34m $0 \033[0m"
-	echo -e "\tgenerate 10 passwords with a length of 8:\n\t\033[1;34m $0 -l 8 -a 10 -o passlist.txt \033[0m\n"
+	echo -e "\tgenerate 1 password with a length of 8:\n\t\033[1;34m pwgen \033[0m"
+	echo -e "\tgenerate 10 passwords with a length of 8:\n\t\033[1;34m pwgen -l 8 -a 10 -o passlist.txt \033[0m\n"
 	echo -e 'PARAMETERS:'
 	echo -e '\t-h \t shows this screen\n'
 	echo -e '\t\t ### required: ###'
@@ -20,7 +20,7 @@ printhelp()
 	echo -e '\t\t ### optional: ###'
 	echo -e '\t-o \t defines the file the password(s) will be saved in \t- default = none'
 	echo -e '\t-c \t defines the charset to use //NOT IMPLEMENTED YET'
-	echo -e "\t $0 -update \t updates the programm and installs it to /usr/sbin/"
+	echo -e "\t pwgen -update \t updates the programm and installs it to /usr/sbin/"
 	exit 0
 }
 
