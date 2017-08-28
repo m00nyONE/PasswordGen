@@ -18,7 +18,7 @@ Dependencies: You need the git package for the updater/installer to work
 
 If you choose to install pwgen to your system, just type ./pwgen -update
 It will download the latest source from GitHub and install itself into /usr/sbin
-WARNING!! If you allready have a programm called pwgen, it will be OVERWRITTEN! check before installing
+WARNING!! If you already have a programm called pwgen, it will be OVERWRITTEN! check before installing
 
 # Usage
 EXAMPLES:
