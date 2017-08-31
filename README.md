@@ -49,8 +49,10 @@ PARAMETERS:
 	-o 	 defines the output file the passwords will be saved in 	- default = none
 	-c 	 defines the charset to use //NOT IMPLEMENTED YET
 	-update	 Updates and Installs pwgen to /usr/sbin/
-
-
+	-install Same as -update
+	-rand 	 the length will be generated automatically between 8-16 chars
+	-inf 	 this will infinitly generate passwords - use with -o ! otherwise, the passwords will be lost
+	
 
 
 
