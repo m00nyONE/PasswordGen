@@ -4,6 +4,25 @@
 amount=1
 length=8
 filename=/tmp/passlist.txt
+RAND=0
+INF=0
+
+# trap ctrl-c and call ctrl_c() for safety reasons. especialy in infinity mode
+trap ctrl_c INT
+
+function ctrl_c()
+{
+	if [ "$filename" != "/tmp/passlist.txt" ]																															# check if the default was changed and copy the passlist.txt to the directory/file given in $filename
+	then # cp /tmp/passlist.txt $filename
+			 cat /tmp/passlist.txt >> $filename
+	fi
+
+	rm -rf /tmp/passlist.txt 																																					# delete the tempfile
+
+    exit 0
+}
+
+
 
 # Print the help screen
 printhelp()
@@ -20,8 +39,19 @@ printhelp()
 	echo -e '\t\t ### optional: ###'
 	echo -e '\t-o \t defines the file the password(s) will be saved in \t- default = none'
 	echo -e '\t-c \t defines the charset to use //NOT IMPLEMENTED YET'
-	echo -e "\t pwgen -update \t updates the programm and installs it to /usr/sbin/"
+	echo -e "\t-rand \t the length will be generated automatically between 8-16 chars"
+	echo -e "\t-inf \t this will infinitly generate passwords - use with -o ! otherwise, the passwords will be lost"
+	echo -e "\t-update  updates the programm and installs it to /usr/sbin/"
+	echo -e "\t-install same as -update"
 	exit 0
+}
+
+infgen()
+{
+	while [ "$INF" == "1" ]
+	do
+	passgen $length 1
+	done
 }
 
 # write the generated passwords to console
@@ -46,19 +76,37 @@ update()
 # main password generation function
 passgen()
 {
-	for i in `seq 1 $2`
+
+  a=0
+	while [ 1 == 1 ]																																												# this loop is just for the infinity process
 	do
-		strings /dev/urandom|grep -o '[[:alnum:]=@!#+*~<>|\"§$%&/(),.;:_-]'|head -n $1|tr -d '\n'
-		echo ""
-	done > /tmp/passlist.txt
 
-	printpw
+		for i in `seq 1 $amount`																																							# run a sequence until the given amount is reached && it saves the passwords to the temp file
+		do
 
-	if [ "$filename" != "/tmp/passlist.txt" ]
-	then cp /tmp/passlist.txt $filename
+			if [ "$RAND" == "1" ]																																								# check if the length should be random or not // if so, generate a length between 8 and 16 (common password length )
+			then
+				length=$(shuf -i 8-16 -n 1)
+			fi
+
+			strings /dev/urandom|grep -o '[[:alnum:]=@!#+*~<>|\"§$%&/(),.;:_-]'|head -n $length|tr -d '\n' 			# catch the given charset out of the /dev/urandom
+			echo ""
+		done >> /tmp/passlist.txt																																							# the generated passwords into a temporary file for easier handling and use
+
+		printpw																																																# display the passwords in the terminal
+
+		if [ "$INF" == "0" ]																																									# check if it runs in infinity mode
+		then break
+		fi
+
+	done
+
+
+	if [ "$filename" != "/tmp/passlist.txt" ]																															# check if the default was changed and copy the passlist.txt to the directory/file given in $filename
+	then cat /tmp/passlist.txt >> $filename
 	fi
 
-	rm -rf /tmp/passlist.txt
+	rm -rf /tmp/passlist.txt 			# delete the tempfile
 
 	exit 0
 }
@@ -68,42 +116,22 @@ if [ $# -eq 0 ]
 then passgen $length $amount
 fi
 
-# check for first option & its parameter
-case $1 in
-	"-h") printhelp ;;
-	"-o") filename=$2 ;;
-	"-a") amount=$2 ;;
-	"-l") length=$2 ;;
-	"-c") echo "not implemented yet!" ;;
-	"-update") update ;;
-	*) printhelp ;;
+# check for parameters and set them
+while [[ $# -gt 0 ]]
+do
+key="$1"
+case $key in
+    -h|--help) printhelp ;;
+    -o|--output) filename="$2" ; shift;;
+		-a|--amount) amount="$2" ; shift ;;
+		-l|--length) length="$2" ; shift ;;
+		-rand|--random) RAND="1" ;;
+		-inf|--infinite) INF="1"; amount="1";;
+    -c|--charset) echo "not implemented yet!"	;;
+    -update|-install) update ;;
+    *) printhelp ;;
 esac
-
-# check second option & its parameter
-case $3 in
-	"-h") printhelp ;;
-	"-o") filename=$4 ;;
-	"-a") amount=$4 ;;
-	"-l") length=$4 ;;
-	"-c") echo "not implemented yet!" ;;
-	"-update") update ;;
-	*) printhelp ;;
-esac
-
-# check if required parameters are set
-if [ $# -lt 4 ]
-then printhelp
-fi
-
-# check third option & its parameter - if not given, generate the passwords
-case $5 in
-	"-h") printhelp ;;
-	"-o") filename=$6 ;;
-	"-a") amount=$6 ;;
-	"-l") length=$6 ;;
-	"-c") echo "not implemented yet!" ;;
-	"-update") update ;;
-	*) passgen $length $amount ;;
-esac
+shift
+done
 
 passgen $length $amount
