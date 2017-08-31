@@ -5,7 +5,12 @@ It uses the urandom device in your linux kernel to generate the passwords. It ju
 
 # It also works as a Portable script, you don't need to install it before using
 
+Download the script from the Browser directly or use git
 
+	mkdir /tmp/passgen
+	git clone https://github.com/m00nyONE/PasswordGen.git /tmp/passgen/
+	cd /tmp/passgen/PasswordGen
+	./passgen
 
 # Installation:
 Dependencies: You need the git package for the updater/installer to work
