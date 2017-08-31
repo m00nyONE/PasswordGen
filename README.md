@@ -10,6 +10,7 @@ Download the script from the Browser directly or use git
 	mkdir /tmp/passgen
 	git clone https://github.com/m00nyONE/PasswordGen.git /tmp/passgen/
 	cd /tmp/passgen/PasswordGen
+	chmod +x passgen
 	./passgen
 
 # Installation:
