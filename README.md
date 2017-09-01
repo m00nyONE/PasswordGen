@@ -22,7 +22,7 @@ Dependencies: You need the git package for the updater/installer to work
 	Redhat:		yum install git
 	Suse:		zypper in git-core
 	
-	./pwgen -update
+	./pwgen -install
 
 If you choose to install pwgen to your system, just type ./pwgen -update
 It will download the latest source from GitHub and install itself into /usr/sbin
@@ -50,10 +50,10 @@ PARAMETERS:
 		 ### optional: ###
 	-o 	 defines the output file the passwords will be saved in 	- default = none
 	-c 	 defines the charset to use //NOT IMPLEMENTED YET
-	-update	 Updates and Installs pwgen to /usr/sbin/
-	-install Same as -update
 	-rand 	 the length will be generated automatically between 8-16 chars
 	-inf 	 this will infinitly generate passwords - use with -o ! otherwise, the passwords will be lost
+	-update	 Updates and Installs pwgen to /usr/sbin/
+	-install Same as -update
 	
 
 
