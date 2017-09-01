@@ -21,6 +21,8 @@ Dependencies: You need the git package for the updater/installer to work
 	Fedora: 	dnf -y install git
 	Redhat:		yum install git
 	Suse:		zypper in git-core
+	
+	./pwgen -update
 
 If you choose to install pwgen to your system, just type ./pwgen -update
 It will download the latest source from GitHub and install itself into /usr/sbin
