@@ -9,7 +9,6 @@ INF=0
 
 # trap ctrl-c and call ctrl_c() for safety reasons. especialy in infinity mode
 trap ctrl_c INT
-
 function ctrl_c()
 {
 	if [ "$filename" != "/tmp/passlist.txt" ]																															# check if the default was changed and copy the passlist.txt to the directory/file given in $filename
@@ -21,8 +20,6 @@ function ctrl_c()
 
     exit 0
 }
-
-
 
 # Print the help screen
 printhelp()
@@ -46,6 +43,7 @@ printhelp()
 	exit 0
 }
 
+# this function is just looping the passgen over and over
 infgen()
 {
 	while [ "$INF" == "1" ]
@@ -76,14 +74,11 @@ update()
 # main password generation function
 passgen()
 {
-
   a=0
 	while [ 1 == 1 ]																																												# this loop is just for the infinity process
 	do
-
 		for i in `seq 1 $amount`																																							# run a sequence until the given amount is reached && it saves the passwords to the temp file
 		do
-
 			if [ "$RAND" == "1" ]																																								# check if the length should be random or not // if so, generate a length between 8 and 16 (common password length )
 			then
 				length=$(shuf -i 8-16 -n 1)
@@ -98,9 +93,7 @@ passgen()
 		if [ "$INF" == "0" ]																																									# check if it runs in infinity mode
 		then break
 		fi
-
 	done
-
 
 	if [ "$filename" != "/tmp/passlist.txt" ]																															# check if the default was changed and copy the passlist.txt to the directory/file given in $filename
 	then cat /tmp/passlist.txt >> $filename
@@ -120,18 +113,19 @@ fi
 while [[ $# -gt 0 ]]
 do
 key="$1"
-case $key in
-    -h|--help) printhelp ;;
-    -o|--output) filename="$2" ; shift;;
+	case $key in
+		-h|--help) printhelp ;;
+		-o|--output) filename="$2" ; shift;;
 		-a|--amount) amount="$2" ; shift ;;
 		-l|--length) length="$2" ; shift ;;
 		-rand|--random) RAND="1" ;;
 		-inf|--infinite) INF="1"; amount="1";;
-    -c|--charset) echo "not implemented yet!"	;;
-    -update|-install) update ;;
-    *) printhelp ;;
-esac
+		-c|--charset) echo "not implemented yet!"	;;
+    		-update|-install) update ;;
+    		*) printhelp ;;
+	esac
 shift
 done
 
 passgen $length $amount
+exit 0
