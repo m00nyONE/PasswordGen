@@ -16,7 +16,7 @@ function ctrl_c()
 			 cat /tmp/passlist.txt >> $filename
 	fi
 
-	rm -rf /tmp/passlist.txt 																																					# delete the tempfile
+	rm -f /tmp/passlist.txt 																																					# delete the tempfile
 
     exit 0
 }
