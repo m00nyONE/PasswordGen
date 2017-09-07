@@ -1,5 +1,10 @@
 #!/bin/sh
 
+################################
+# PasswordGen script for Linux #
+# by m00ny		       #
+################################
+
 # Default PARAMETERS
 amount=1
 length=8
@@ -24,7 +29,7 @@ function ctrl_c()
 # Print the help screen
 printhelp()
 {
-	echo -e 'pwgen 1.0 - by m00ny\n\n'
+	echo -e 'pwgen 1.1\n\n'
 	echo -e 'EXAMPLES:'
 	echo -e "\tgenerate 1 password with a length of 8:\n\t\033[1;34m pwgen \033[0m"
 	echo -e "\tgenerate 10 passwords with a length of 8:\n\t\033[1;34m pwgen -l 8 -a 10 -o passlist.txt \033[0m\n"
