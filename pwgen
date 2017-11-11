@@ -1,9 +1,9 @@
 #!/bin/sh
 
-################################ TESTING VERSION
-# PasswordGen script for Linux # TESTING VERSION
-# by m00ny		       # TESTING VERSION
-################################ TESTING VERSION
+################################ 
+# PasswordGen script for Linux # 
+# by m00ny		       # 
+################################ 
 
 # Default PARAMETERS
 amount=1
