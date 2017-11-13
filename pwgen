@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-################################ TESTING VERSION
-# PasswordGen script for Linux # TESTING VERSION
-# by m00ny		       # TESTING VERSION
-################################ TESTING VERSION
+################################
+# PasswordGen script for Linux #
+# by m00ny		       #
+################################
 
 # Default PARAMETERS
 amount=1
@@ -14,14 +14,14 @@ INF=0
 
 # trap ctrl-c and call ctrl_c() for safety reasons. especialy in infinity mode
 trap ctrl_c INT
-function ctrl_c()
+ctrl_c()
 {
-	if [ "$filename" != "/tmp/passlist.txt" ]																															# check if the default was changed and copy the passlist.txt to the directory/file given in $filename
+	if [ "$filename" != "/tmp/passlist.txt" ] # check if the default was changed and copy the passlist.txt to the directory/file given in $filename
 	then # cp /tmp/passlist.txt $filename
 			 cat /tmp/passlist.txt >> $filename
 	fi
 
-	rm -f /tmp/passlist.txt 																																					# delete the tempfile
+	rm -f /tmp/passlist.txt # delete the tempfile
 
     exit 0
 }
@@ -29,29 +29,29 @@ function ctrl_c()
 # Print the help screen
 printhelp()
 {
-	echo -e 'pwgen 1.1\n\n'
-	echo -e 'EXAMPLES:'
-	echo -e "\tgenerate 1 password with a length of 8:\n\t\033[1;34m pwgen \033[0m"
-	echo -e "\tgenerate 10 passwords with a length of 8:\n\t\033[1;34m pwgen -l 8 -a 10 -o passlist.txt \033[0m\n"
-	echo -e 'PARAMETERS:'
-	echo -e '\t-h \t shows this screen\n'
-	echo -e '\t\t ### required: ###'
-	echo -e '\t-l \t defines the length of the generated passord(s) \t\t- default = 8'
-	echo -e '\t-a \t defines the amount of generated passwords \t\t\t- default = 1\n'
-	echo -e '\t\t ### optional: ###'
-	echo -e '\t-o \t defines the file the password(s) will be saved in \t- default = none'
-	echo -e '\t-c \t defines the charset to use //NOT IMPLEMENTED YET'
-	echo -e "\t-rand \t the length will be generated automatically between 8-16 chars"
-	echo -e "\t-inf \t this will infinitly generate passwords - use with -o ! otherwise, the passwords will be lost"
-	echo -e "\t-update  updates the programm and installs it to /usr/sbin/"
-	echo -e "\t-install same as -update"
+	printf 'pwgen 1.1\n\n'
+	printf 'EXAMPLES:'
+	printf "\tgenerate 1 password with a length of 8:\n\t\033[1;34m pwgen \033[0m"
+	printf "\tgenerate 10 passwords with a length of 8:\n\t\033[1;34m pwgen -l 8 -a 10 -o passlist.txt \033[0m\n"
+	printf 'PARAMETERS:'
+	printf '\t-h \t shows this screen\n'
+	printf '\t\t ### required: ###'
+	printf '\t-l \t defines the length of the generated passord(s) \t\t- default = 8'
+	printf '\t-a \t defines the amount of generated passwords \t\t\t- default = 1\n'
+	printf '\t\t ### optional: ###'
+	printf '\t-o \t defines the file the password(s) will be saved in \t- default = none'
+	printf '\t-c \t defines the charset to use //NOT IMPLEMENTED YET'
+	printf "\t-rand \t the length will be generated automatically between 8-16 chars"
+	printf "\t-inf \t this will infinitly generate passwords - use with -o ! otherwise, the passwords will be lost"
+	printf "\t-update  updates the programm and installs it to /usr/sbin/"
+	printf "\t-install same as -update"
 	exit 0
 }
 
 # this function is just looping the passgen over and over
 infgen()
 {
-	while [ "$INF" == "1" ]
+	while [ "$INF" == "1" ];
 	do
 	passgen $length 1
 	done
@@ -80,37 +80,32 @@ update()
 passgen()
 {
   a=0
-	while [ 1 == 1 ]																																												# this loop is just for the infinity process
+	while [ "$INF" != "0" ]; # this loop is just for the infinity process
 	do
-		for i in `seq 1 $amount`																																							# run a sequence until the given amount is reached && it saves the passwords to the temp file
+		for i in ${seq 1 $amount} # run a sequence until the given amount is reached && it saves the passwords to the temp file
 		do
-			if [ "$RAND" == "1" ]																																								# check if the length should be random or not // if so, generate a length between 8 and 16 (common password length )
+			if [ "$RAND" == "1" ]; # check if the length should be random or not // if so, generate a length between 8 and 16 (common password length )
 			then
 				length=$(shuf -i 8-16 -n 1)
 			fi
 
-			strings /dev/urandom|grep -o '[[:alnum:]=@!#+*~<>|\"§$%&/(),.;:_-]'|head -n $length|tr -d '\n' 			# catch the given charset out of the /dev/urandom
+			strings /dev/urandom|grep -o '[[:alnum:]=@!#+*~<>|\"Â§$%&/(),.;:_-]'|head -n $length|tr -d '\n' # catch the given charset out of the /dev/urandom
 			echo ""
-		done >> /tmp/passlist.txt																																							# the generated passwords into a temporary file for easier handling and use
-
-		printpw																																																# display the passwords in the terminal
-
-		if [ "$INF" == "0" ]																																									# check if it runs in infinity mode
-		then break
-		fi
+		done >> /tmp/passlist.txt # the generated passwords into a temporary file for easier handling and use
+		printpw # display the passwords in the terminal
 	done
 
-	if [ "$filename" != "/tmp/passlist.txt" ]																															# check if the default was changed and copy the passlist.txt to the directory/file given in $filename
+	if [ "$filename" != "/tmp/passlist.txt" ] # check if the default was changed and copy the passlist.txt to the directory/file given in $filename
 	then cat /tmp/passlist.txt >> $filename
 	fi
 
-	rm -rf /tmp/passlist.txt 			# delete the tempfile
+	rm -rf /tmp/passlist.txt # delete the tempfile
 
 	exit 0
 }
 
 # default generation without parameters
-if [ $# -eq 0 ]
+if [ $# -eq 0 ];
 then passgen $length $amount
 fi
 
