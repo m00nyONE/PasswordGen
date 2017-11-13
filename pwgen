@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ################################ 
 # PasswordGen script for Linux # 
@@ -57,12 +57,6 @@ infgen()
 	done
 }
 
-# write the generated passwords to console
-printpw()
-{
-	cat /tmp/passlist.txt
-}
-
 #update script
 update()
 {
@@ -79,7 +73,6 @@ update()
 # main password generation function
 passgen()
 {
-  a=0
 	while [ 1 == 1 ]																																												# this loop is just for the infinity process
 	do
 		for i in `seq 1 $amount`																																							# run a sequence until the given amount is reached && it saves the passwords to the temp file
@@ -93,7 +86,7 @@ passgen()
 			echo ""
 		done >> /tmp/passlist.txt																																							# the generated passwords into a temporary file for easier handling and use
 
-		printpw																																																# display the passwords in the terminal
+		cat /tmp/passlist.txt																																															# display the passwords in the terminal
 
 		if [ "$INF" == "0" ]																																									# check if it runs in infinity mode
 		then break
