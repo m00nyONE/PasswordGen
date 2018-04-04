@@ -1,3 +1,6 @@
+//BUGGED - ONLY WORKS ON ARCH LINUX - SOME THINGS CRASHED
+
+
 # PasswordGen
 A simple & lightweight bash script to generate secure passwords in a given length and/or output them to a file.
 It uses the urandom device in your linux system to generate the passwords. It just greps characters out and joins them together.
